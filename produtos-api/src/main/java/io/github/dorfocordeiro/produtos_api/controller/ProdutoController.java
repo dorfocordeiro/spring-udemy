@@ -5,6 +5,7 @@ import io.github.dorfocordeiro.produtos_api.model.Produto;
 import io.github.dorfocordeiro.produtos_api.repository.ProdutoRepository;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -24,5 +25,16 @@ public class ProdutoController {
         produto.setId(id);
         produtoRepository.save(produto);
         return produto;
+    }
+
+
+    @GetMapping("/{id}")
+    public Produto obterProdutoPorId(@PathVariable String id) {
+        Optional<Produto> produto = produtoRepository.findById(id);
+//        return produto.isPresent() ? produto.get() : null; isPresent() -> se estiver presente ? true, : false
+
+        // Usar o Optional para evitar o NullPointerException
+
+        return produtoRepository.findById(id).orElse(null); // Méthodo orElse -> se não encontrar, retorna null
     }
 }
