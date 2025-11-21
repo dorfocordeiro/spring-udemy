@@ -5,6 +5,7 @@ import io.github.dorfocordeiro.produtos_api.model.Produto;
 import io.github.dorfocordeiro.produtos_api.repository.ProdutoRepository;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -42,5 +43,11 @@ public class ProdutoController {
     @DeleteMapping("/{id}")
     public void deletarProdutoPorId(@PathVariable("id") String id) {
         produtoRepository.deleteById(id);
+    }
+
+    @GetMapping
+    public List<Produto> obterProdutoPorNome(@RequestParam("nome") String nome) {
+         return produtoRepository.findByNome(nome);
+
     }
 }
