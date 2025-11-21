@@ -33,8 +33,14 @@ public class ProdutoController {
         Optional<Produto> produto = produtoRepository.findById(id);
 //        return produto.isPresent() ? produto.get() : null; isPresent() -> se estiver presente ? true, : false
 
-        // Usar o Optional para evitar o NullPointerException
+//        Usar o Optional para evitar o NullPointerException
 
         return produtoRepository.findById(id).orElse(null); // Méthodo orElse -> se não encontrar, retorna null
+    }
+
+
+    @DeleteMapping("/{id}")
+    public void deletarProdutoPorId(@PathVariable("id") String id) {
+        produtoRepository.deleteById(id);
     }
 }
