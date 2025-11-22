@@ -20,12 +20,12 @@ public class ProdutoController {
     }
 
     @PostMapping
-    public Produto salvarProduto(@RequestBody Produto produto) {
+    public List<Produto> salvarProduto(@RequestBody Produto produto) {
         System.out.println("Salvando produto: " + produto);
         var id = UUID.randomUUID().toString();
         produto.setId(id);
         produtoRepository.save(produto);
-        return produto;
+        return produtoRepository.findAll();
     }
 
 
@@ -37,6 +37,12 @@ public class ProdutoController {
 //        Usar o Optional para evitar o NullPointerException
 
         return produtoRepository.findById(id).orElse(null); // Méthodo orElse -> se não encontrar, retorna null
+    }
+
+    @PutMapping("/{id}")
+    public void atualizar(@PathVariable("id") String id,
+                          @RequestBody Produto produto) {
+        produtoRepository.save(produto);
     }
 
 
